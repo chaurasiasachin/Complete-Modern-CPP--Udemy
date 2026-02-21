@@ -21,6 +21,16 @@ Integer::Integer(const Integer &obj)
     m_pInt = new int(*obj.m_pInt);
 }
 
+Integer::Integer(Integer &&obj)
+{
+    // In this move contructor we are going to steal the obj using shallow copy
+    std::cout<<"Integer(Integer &&)"<<std::endl;
+    m_pInt = obj.m_pInt; // Shallow copy
+    obj.m_pInt = nullptr; // nullify the source pointer to avoid double deletion
+                        // this way when the other object will be destroyed, its destructor will not crash.
+                        // The call to delete in destructor will be ignored because that will be delete on a nullptr. 
+}
+
 int Integer::GetValue() const
 {
     return *m_pInt;
