@@ -1,13 +1,21 @@
 #include "Integer.h"
+#include <utility>
 class Number{
     Integer m_value{};
 public:
     Number(int value):m_value(value){
 
     }
-    // Number(const Number &n):m_value(n.m_value){
-    // }
+    /*
+    Number(const Number &n):m_value(n.m_value){
+    }
+    */
+    /*
     ~Number(){};
+    */
+    Number(Number &&n):m_value{std::move(n.m_value)}{
+    }
+    Number & operator=(Number&&)=default;
 };
 
 Number CreateNumber(int num){
@@ -17,8 +25,8 @@ Number CreateNumber(int num){
 
 int main(){
     Number n1{1};  
-    auto n2{n1};
-    n2 = n1;
+    // auto n2{n1};
+    // n2 = n1;
     // Copy assignment operator
     // Since Integer is a member of Number class, when we use the instances of Number
     // in an expression that requires copying or moving, the compiler will automatically sunthesis
