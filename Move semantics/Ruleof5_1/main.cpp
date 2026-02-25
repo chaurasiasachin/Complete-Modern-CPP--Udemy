@@ -5,8 +5,9 @@ public:
     Number(int value):m_value(value){
 
     }
-    Number(const Number &n):m_value(n.m_value){
-    }
+    // Number(const Number &n):m_value(n.m_value){
+    // }
+    ~Number(){};
 };
 
 Number CreateNumber(int num){
