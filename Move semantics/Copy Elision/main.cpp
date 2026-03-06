@@ -1,5 +1,6 @@
 #include "Integer.h"
 #include <iostream>
+#include <utility>
 
 int main(){
    Integer a(1);
@@ -12,7 +13,8 @@ int main(){
           // To Force the compiler to use the move constructor, we can apply a
           // type cast on the object a and the type cast can be a static cast to an R-value
           // reference 
-          
-    auto b{static_cast<Integer &&>(a)};
+
+    //auto b{static_cast<Integer &&>(a)};
+    auto b{std::move(a)};
      
 }
