@@ -2,19 +2,41 @@
 #include <iostream>
 #include <utility>
 
-int main(){
-   Integer a(1);
-   // auto b{a}; // Creating copy of object a in b. because a is L-value, the function overload
-          // resolution will choose function Integer(const Integer &obj); because parameter
-          // here is of type L-value.
-          // In some cases we may not want to create the copy of this object. Instead we
-          // may want to move it into b. But by default because of function overload 
-          // resolution, the compiler will always choose the copy constructor.
-          // To Force the compiler to use the move constructor, we can apply a
-          // type cast on the object a and the type cast can be a static cast to an R-value
-          // reference 
+void Print(Integer val){
 
-    //auto b{static_cast<Integer &&>(a)};
-    auto b{std::move(a)};
+}
+int main(){
+    Integer a(1); // -> creating the object
+    a.SetValue(3); // after creating we may be Initializing it here or perform any operations.
+    // Now we dont want the state of a. But instead we want the state of a in some other
+    // object, let say b. Son, that case we will apply std::move on it.
+    //auto b{std::move(a)};
+
+    // This is commonly required when we have function like void Print(Integer val)
+   //Print(a);
+   // Now we dont want the state of a after print funtion instead of leting compiler copy
+   // this object into val, you can move it.
+   // The advantage is that when we move the state of 'a' oobject into val after the print
+   // function finishes, the val object will be destroyed. And will release the underlying
+   // resources.
+   // If we simply pass 'a' object by value in Print function, a copy is created. When
+   // integer object val is destroyed here, it will release its own resources, but the
+   // underlying resources of 'a' will be released only at end of the main function.
+   // And we dont want to use the resources of 'a' after the print function. Thats why
+   // we will implement move. Instead of Print(a); we will write Print(std::move(a));
+   Print(std::move(a));
+
+   // This is common pattern with unique pointer. Unique pointer is a Smart Pointer.
+   // Thats why we heavily use std::move in Smart Pointers.
+   // After we move from 'a', we cannot read from the object 'a'. This is because in move
+   // constructor Integer::Integer(Integer &&obj) we are doing obj.m_pInt = nullptr;
+   // that is we are assigning null pointer to the member. So if try to read from 'a',
+   // the program may crash
+   //std::cout<<a.GetValue()<<std::endl;
+
+   //So, when we move from an object. The object is in unspecified state.
+   // but the object is still a valid object and we can reinitialise it and reuse it.
+   a.SetValue(5); // -> do this first (Also the implementation of SetValue must be corrected)
+   std::cout<<a.GetValue()<<std::endl;
      
 }
