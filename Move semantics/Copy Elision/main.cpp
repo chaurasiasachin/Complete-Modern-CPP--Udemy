@@ -24,7 +24,9 @@ int main(){
    // underlying resources of 'a' will be released only at end of the main function.
    // And we dont want to use the resources of 'a' after the print function. Thats why
    // we will implement move. Instead of Print(a); we will write Print(std::move(a));
+   
    Print(std::move(a));
+   //Print(a);
 
    // This is common pattern with unique pointer. Unique pointer is a Smart Pointer.
    // Thats why we heavily use std::move in Smart Pointers.

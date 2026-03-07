@@ -11,7 +11,7 @@ Integer::Integer(int value)
     std::cout<<"Integer(int )"<<std::endl;
     m_pInt = new int(value);
 }
-
+/*
 Integer::Integer(const Integer &obj)
 {
     // int val = (*obj.m_pInt);
@@ -20,6 +20,7 @@ Integer::Integer(const Integer &obj)
     std::cout<<"Integer(const Integer &)"<<std::endl;
     m_pInt = new int(*obj.m_pInt);
 }
+*/
 
 Integer::Integer(Integer &&obj)
 {

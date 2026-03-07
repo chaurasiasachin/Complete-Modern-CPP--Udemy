@@ -8,7 +8,7 @@ public:
     // Parameterised Constructor
     Integer(int val);
     // Copy Constructor
-    Integer(const Integer &obj);
+    /* Integer(const Integer &obj); */
     // Move Constructor
     Integer(Integer &&obj);
     int GetValue() const;
